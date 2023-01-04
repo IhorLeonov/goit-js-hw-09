@@ -1,30 +1,59 @@
 import flatpickr from 'flatpickr';
+import Notiflix from 'notiflix';
 import 'flatpickr/dist/flatpickr.min.css';
 
-const options = {
+const input = document.querySelector('#datetime-picker');
+const startBtn = document.querySelector('button[data-start]');
+const spanDays = document.querySelector('span[data-days]');
+const spanHours = document.querySelector('span[data-hours]');
+const spanMinutes = document.querySelector('span[data-minutes]');
+const spanSeconds = document.querySelector('span[data-seconds]');
+const optionsFp = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const date = new Date().getTime();
-    const selectedDate = selectedDates[0].getTime();
-    if (date > selectedDate) {
+    const date = new Date();
+    if (date > selectedDates[0]) {
       startBtn.disabled = true;
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future', {
+        timeout: 3000,
+      });
     } else {
       startBtn.disabled = false;
-      choosenDate = selectedDate;
     }
   },
 };
-const input = document.querySelector('#datetime-picker');
-const fp = flatpickr(input, options);
-const startBtn = document.querySelector('button[data-start]');
-let choosenDate = 0;
-
+const fp = flatpickr(input, optionsFp);
 startBtn.disabled = true;
 startBtn.addEventListener('click', onStartBtnClick);
+
+function onStartBtnClick() {
+  startBtn.disabled = true;
+  input.disabled = true;
+  startTimer();
+  timerId = setInterval(startTimer, 1000);
+}
+
+function startTimer() {
+  const choosenDate = fp.selectedDates[0];
+  const currentDate = new Date();
+  const timeToEnd = choosenDate - currentDate;
+
+  if (timeToEnd < 0) {
+    Notiflix.Notify.success('Time is up, Congratulations!', {
+      timeout: 3000,
+    });
+    clearInterval(timerId);
+    return;
+  }
+
+  spanDays.textContent = addLeadingZero(convertMs(timeToEnd).days);
+  spanHours.textContent = addLeadingZero(convertMs(timeToEnd).hours);
+  spanMinutes.textContent = addLeadingZero(convertMs(timeToEnd).minutes);
+  spanSeconds.textContent = addLeadingZero(convertMs(timeToEnd).seconds);
+}
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -44,24 +73,7 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-function onStartBtnClick() {
-  startBtn.disabled = true;
-  let time;
-  let currentDate;
-  let timerId = setInterval(() => {
-    currentDate = new Date().getTime();
-    time = choosenDate - currentDate;
 
-    const spanDays = document.querySelector('span[data-days]');
-    spanDays.textContent = convertMs(time).days;
-
-    const spanHours = document.querySelector('span[data-hours]');
-    spanHours.textContent = convertMs(time).hours;
-
-    const spanMinutes = document.querySelector('span[data-minutes]');
-    spanMinutes.textContent = convertMs(time).minutes;
-
-    const spanSeconds = document.querySelector('span[data-seconds]');
-    spanSeconds.textContent = convertMs(time).seconds;
-  }, 1000);
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
 }

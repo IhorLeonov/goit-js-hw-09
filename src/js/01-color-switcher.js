@@ -11,7 +11,7 @@ function onBtnStartClick() {
     const color = getRandomHexColor();
     body.style.backgroundColor = color;
   }, 1000);
-  this.setAttribute('disabled', 'true');
+  btnStart.setAttribute('disabled', 'true');
   btnStop.removeAttribute('disabled');
 }
 

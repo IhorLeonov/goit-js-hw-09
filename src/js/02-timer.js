@@ -28,6 +28,7 @@ const optionsFp = {
 const fp = flatpickr(input, optionsFp);
 startBtn.disabled = true;
 startBtn.addEventListener('click', onStartBtnClick);
+let timerId;
 
 function onStartBtnClick() {
   startBtn.disabled = true;

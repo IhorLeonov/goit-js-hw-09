@@ -4,7 +4,7 @@ const body = document.querySelector('body');
 
 btnStart.addEventListener('click', onBtnStartClick);
 btnStop.addEventListener('click', onBtnStopClick);
-btnStop.setAttribute('disabled', 'true');
+btnStop.disabled = true;
 
 function onBtnStartClick() {
   timerId = setInterval(() => {

@@ -4,7 +4,6 @@ const body = document.querySelector('body');
 
 btnStart.addEventListener('click', onBtnStartClick);
 btnStop.addEventListener('click', onBtnStopClick);
-btnStop.disabled = true;
 
 function onBtnStartClick() {
   btnStart.disabled = true;

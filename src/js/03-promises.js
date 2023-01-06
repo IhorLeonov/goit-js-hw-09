@@ -1,5 +1,3 @@
-import Notiflix from 'notiflix';
-
 // Напиши скрипт, который при сабмите формы вызывает функцию createPromise(position, delay) столько раз,
 // сколько ввели в поле amount. При каждом вызове передай ей номер создаваемого промиса(position)
 // и задержку учитывая введенную пользователем первую задержку(delay) и шаг(step).
@@ -9,16 +7,9 @@ import Notiflix from 'notiflix';
 // в котором будут свойства position и delay со значениями одноименных параметров.
 // Используй начальный код функции для выбора того, что нужно сделать с промисом - выполнить или отклонить.
 
-// createPromise(2, 1500)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
+import Notiflix from 'notiflix';
 
 const form = document.querySelector('form');
-
 form.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
@@ -36,6 +27,8 @@ function onSubmit(e) {
       createPromise(position, delay).then(onSuccess).catch(onReject);
     }, delay);
   }
+
+  form.reset();
 }
 
 function createPromise(position, delay) {

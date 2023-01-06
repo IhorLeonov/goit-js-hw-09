@@ -42,12 +42,10 @@ function startTimer() {
   const timeToEnd = choosenDate - currentDate;
 
   if (timeToEnd < 0) {
-    clearInterval(timerId);
     Notiflix.Notify.success('Time is up! Congratulations!', {
       timeout: 3000,
     });
-    startBtn.disabled = false;
-    input.disabled = false;
+    clearInterval(timerId);
     return;
   }
 

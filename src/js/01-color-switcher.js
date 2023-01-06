@@ -16,9 +16,9 @@ function onBtnStartClick() {
 }
 
 function onBtnStopClick() {
-  clearInterval(timerId);
   btnStart.disabled = false;
   btnStop.disabled = true;
+  clearInterval(timerId);
 }
 
 function getRandomHexColor() {

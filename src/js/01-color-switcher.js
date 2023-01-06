@@ -7,12 +7,12 @@ btnStop.addEventListener('click', onBtnStopClick);
 btnStop.disabled = true;
 
 function onBtnStartClick() {
+  btnStart.disabled = true;
+  btnStop.disabled = false;
   timerId = setInterval(() => {
     const color = getRandomHexColor();
     body.style.backgroundColor = color;
   }, 1000);
-  btnStart.disabled = true;
-  btnStop.disabled = false;
 }
 
 function onBtnStopClick() {

@@ -46,6 +46,8 @@ function startTimer() {
       timeout: 3000,
     });
     clearInterval(timerId);
+    startBtn.disabled = false;
+    input.disabled = false;
     return;
   }
 

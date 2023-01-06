@@ -11,14 +11,14 @@ function onBtnStartClick() {
     const color = getRandomHexColor();
     body.style.backgroundColor = color;
   }, 1000);
-  btnStart.setAttribute('disabled', 'true');
-  btnStop.removeAttribute('disabled');
+  btnStart.disabled = true;
+  btnStop.disabled = false;
 }
 
 function onBtnStopClick() {
   clearInterval(timerId);
-  btnStart.removeAttribute('disabled');
-  btnStop.setAttribute('disabled', 'true');
+  btnStart.disabled = false;
+  btnStop.disabled = true;
 }
 
 function getRandomHexColor() {

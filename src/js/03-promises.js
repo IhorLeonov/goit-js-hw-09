@@ -23,7 +23,7 @@ function onSubmit(e) {
     setTimeout(() => {
       createPromise(position, delay)
         .then(onSuccess)
-        .catch(onReject)
+        .catch(onError)
         .finally(() => form.reset());
     }, delay);
   }
@@ -45,6 +45,6 @@ function onSuccess({ position, delay }) {
   Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
 }
 
-function onReject({ position, delay }) {
+function onError({ position, delay }) {
   Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
 }
